@@ -65,18 +65,19 @@ func (l *List[T]) Filter(callback func(index int, item T) bool) List[T] {
 }
 
 // Find ищет и возвращает первый элемент, соответствующий выражению в callback
-func (l *List[T]) Find(callback func(item T) bool) (*T, int) {
+func (l *List[T]) Find(callback func(item T) bool) (T, int) {
 	node := l.head
 	index := 0
 	for node != nil {
 		if callback(node.value) {
-			return &node.value, index
+			return node.value, index
 		}
 		node = node.next
 		index++
 	}
 
-	return nil, -1
+	var zero T
+	return zero, -1
 }
 
 // Map изменить каждый элемент в списке
